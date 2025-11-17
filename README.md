@@ -21,3 +21,16 @@
     Using Bruno to avoid Postman license issues.
 1. Download and install Bruno from [here](https://www.usebruno.com/)
 2. Open Bruno and add a collection from `app/bruno`
+
+## Accounts
+### Per company
+company.company
+company.generic_in
+company.generic_out
+### Per giftcard
+giftcard
+
+## Money flow
+company.comany -> giftcard (issue gift card)
+giftcard -> company.generic_out (redeem gift card)
+company.generic_in -> giftcard (top up gift card)
