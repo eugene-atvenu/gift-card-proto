@@ -10,10 +10,11 @@
 
 ## Setup
 1. run `docker compose up -d` to start the DB
-2. switch to `app` folder
-3. run `npm install` to install dependencies
-4. run `npm run dev` to start the app
-5. API will be running on `http://localhost:3000`
+2. Using tool of your choice connect to pg db and run `db/db-structure.sql` to create DB structure
+3. switch to `app` folder
+4. run `npm install` to install dependencies
+5. run `npm run dev` to start the app
+6. API will be running on `http://localhost:3000`
 
 ## Play with API
     User API is useless just ignore.
