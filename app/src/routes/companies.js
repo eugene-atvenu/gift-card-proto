@@ -1,6 +1,6 @@
 import { and, desc, eq, isNull, ne, sql } from 'drizzle-orm'
 import { ACCOUNT_TYPES } from '../constants.js'
-import { accounts, companies, ledgerEntries } from '../db/schema.js'
+import { accounts, companies, giftCards, ledgerEntries } from '../db/schema.js'
 import { getAccountBalance } from '../helpers/accounts.helper.js'
 
 export default async function companiesRoutes(fastify) {
@@ -34,6 +34,41 @@ export default async function companiesRoutes(fastify) {
     }
 
     return company
+  })
+
+
+   // GET single company by id
+  fastify.get('/companies/:id/giftcards', async (request, reply) => {
+    const id = parseInt(request.params.id, 10)
+
+    if (Number.isNaN(id)) {
+      reply.code(400)
+      return { error: 'Invalid company id' }
+    }
+
+    const company = await fastify.db
+      .select()
+      .from(companies)
+      .where(and(eq(companies.id, id), isNull(companies.deletedAt)))
+      .limit(1)
+
+    if (!company) {
+      reply.code(404)
+      return { error: 'Company not found' }
+    }
+
+    const giftcards = await fastify.db
+      .select({
+        code: giftCards.code,
+        name: giftCards.name,
+        description: giftCards.description,
+        createdAt: giftCards.createdAt
+      })
+      .from(giftCards)
+      .where(and(eq(giftCards.companyId, id), isNull(giftCards.deletedAt)))
+      .orderBy(desc(giftCards.id))
+
+    return giftcards
   })
 
   fastify.post('/companies', async (request, reply) => {

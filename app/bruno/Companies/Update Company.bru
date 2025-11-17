@@ -1,12 +1,13 @@
 meta {
   name: Update Company
   type: http
-  seq: 4
+  seq: 5
 }
 
 patch {
   url: {{baseUrl}}/companies/{{companyId}}
   body: json
+  auth: none
 }
 
 body:json {

@@ -1,9 +1,11 @@
 meta {
   name: Get Company Account Totals
   type: http
-  seq: 8
+  seq: 9
 }
 
 get {
   url: {{baseUrl}}/companies/{{companyId}}/account-totals
+  body: none
+  auth: none
 }

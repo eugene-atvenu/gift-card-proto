@@ -1,9 +1,11 @@
 meta {
   name: Get Company Balance
   type: http
-  seq: 6
+  seq: 7
 }
 
 get {
   url: {{baseUrl}}/companies/{{companyId}}/balance
+  body: none
+  auth: none
 }
