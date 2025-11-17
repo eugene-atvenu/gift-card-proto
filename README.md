@@ -23,12 +23,14 @@
 2. Open Bruno and add a collection from `app/bruno`
 
 ## Accounts
+This may not be the optimal structure, but it serves the current purpose (prototype).
+Also all account do have `allowed_credit` column that is currently not used.
 ### Per company
-company.company
-company.generic_in
-company.generic_out
+* company.company - Keeps transactions on giftcard creations. In future should have transactions on paying the bill.
+* company.generic_in - Currently shows transactions on funds added to gift cards after release.
+* company.generic_out - Currently shows transactions on funds spent from gift cards released.
 ### Per giftcard
-giftcard
+* giftcard - Kinda like a banc account list funds in and out.
 
 ## Money flow
     company.comany -> giftcard (issue gift card)
