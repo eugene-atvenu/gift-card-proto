@@ -1,4 +1,5 @@
 # Prototype (Contains AI slop)
+**NODE VERSION: 22**
 ## Folder Structure
 - `db` - SQL with a current DB structure
 - `app` - Crud API and business logic. Runs manually
@@ -14,7 +15,8 @@
 4. run `npm run dev` to start the app
 5. API will be running on `http://localhost:3000`
 
-## Using Bruno to play with API
+## Play with API
     User API is useless just ignore.
+    Using Bruno to avoid Postman license issues.
 1. Download and install Bruno from [here](https://www.usebruno.com/)
 2. Open Bruno and add a collection from `app/bruno`
