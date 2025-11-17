@@ -30,7 +30,7 @@ Also all account do have `allowed_credit` column that is currently not used.
 * company.generic_in - Currently shows transactions on funds added to gift cards after release.
 * company.generic_out - Currently shows transactions on funds spent from gift cards released.
 ### Per giftcard
-* giftcard - Kinda like a banc account list funds in and out.
+* giftcard - Kinda like a bank account list funds in and out.
 
 ## Money flow
     company.comany -> giftcard (issue gift card)
