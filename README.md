@@ -31,6 +31,6 @@ company.generic_out
 giftcard
 
 ## Money flow
-company.comany -> giftcard (issue gift card)
-giftcard -> company.generic_out (redeem gift card)
-company.generic_in -> giftcard (top up gift card)
+    company.comany -> giftcard (issue gift card)
+    giftcard -> company.generic_out (redeem gift card)
+    company.generic_in -> giftcard (top up gift card)
