@@ -1,0 +1,19 @@
+meta {
+  name: Create Company
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/companies
+  body: json
+}
+
+body:json {
+  {
+    "name": "Test Company",
+    "metadata": {
+      "industry": "retail"
+    }
+  }
+}

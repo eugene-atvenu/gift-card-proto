@@ -1,0 +1,16 @@
+meta {
+  name: Update Company
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/companies/{{companyId}}
+  body: json
+}
+
+body:json {
+  {
+    "name": "Updated Company Name"
+  }
+}

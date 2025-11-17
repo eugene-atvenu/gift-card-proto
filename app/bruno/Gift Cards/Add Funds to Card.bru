@@ -1,0 +1,16 @@
+meta {
+  name: Add Funds to Card
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/gift-cards/{{testCardCode}}/add-funds
+  body: json
+}
+
+body:json {
+  {
+    "amount": 50
+  }
+}

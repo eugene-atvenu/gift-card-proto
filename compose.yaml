@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  db:
+    image: timescale/timescaledb:latest-pg17
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=adminpassword
+      - POSTGRES_DB=gift_cards_db
+    ports:
+      - '5832:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+volumes:
+  db_data:
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge

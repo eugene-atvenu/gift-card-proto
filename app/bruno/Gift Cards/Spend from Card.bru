@@ -1,0 +1,16 @@
+meta {
+  name: Spend from Card
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/gift-cards/{{testCardCode}}/spend
+  body: json
+}
+
+body:json {
+  {
+    "amount": 9.99
+  }
+}

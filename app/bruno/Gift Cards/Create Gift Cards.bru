@@ -1,0 +1,20 @@
+meta {
+  name: Create Gift Cards
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/gift-cards
+  body: json
+}
+
+body:json {
+  {
+    "company_id": {{companyId}},
+    "quantity": 100,
+    "amount": 20,
+    "name": "Holiday Gift Card",
+    "description": "Valid for all products"
+  }
+}

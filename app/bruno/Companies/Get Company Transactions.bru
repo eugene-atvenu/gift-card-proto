@@ -1,0 +1,13 @@
+meta {
+  name: Get Company Transactions
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/companies/{{companyId}}/transactions
+}
+
+params:query {
+  account_type: company
+}
