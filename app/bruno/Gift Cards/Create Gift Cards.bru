@@ -5,13 +5,22 @@ meta {
 }
 
 post {
-  url: {{baseUrl}}/gift-cards
+  url: {{baseUrl}}/companies/{{companyId}}/gift-cards
   body: json
+  auth: bearer
+}
+
+headers {
+  api-key: 019aaf1a-5324-769f-a13d-d164c99d4769
+  api-secret: 51de8c8b85cd0a714843e20f97e0f373
+}
+
+auth:bearer {
+  token: {{authToken}}
 }
 
 body:json {
   {
-    "company_id": {{companyId}},
     "quantity": 100,
     "amount": 20,
     "name": "Holiday Gift Card",

@@ -2,6 +2,8 @@ import Fastify from 'fastify'
 import postgres from '@fastify/postgres'
 import drizzlePlugin from './plugins/drizzle.js'
 import companiesRoutes from './routes/companies.js'
+import companyUsersRoutes from './routes/company-users.js'
+import companyGiftCardsRoutes from './routes/company-giftcards.js'
 import usersRoutes from './routes/users.js'
 import giftCardsRoutes from './routes/gift-cards.js'
 import 'dotenv/config'
@@ -20,6 +22,8 @@ fastify.register(drizzlePlugin)
 
 // Register routes
 fastify.register(companiesRoutes)
+fastify.register(companyUsersRoutes)
+fastify.register(companyGiftCardsRoutes)
 fastify.register(usersRoutes)
 fastify.register(giftCardsRoutes)
 

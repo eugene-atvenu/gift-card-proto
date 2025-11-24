@@ -7,6 +7,11 @@ meta {
 post {
   url: {{baseUrl}}/gift-cards/{{testCardCode}}/add-funds
   body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
 }
 
 body:json {

@@ -1,0 +1,16 @@
+meta {
+  name: Get Profile (API Key)
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/profile
+  body: none
+  auth: none
+}
+
+headers {
+  api-key: <INSERT_API_KEY>
+  api-secret: <INSERT_API_SECRET>
+}

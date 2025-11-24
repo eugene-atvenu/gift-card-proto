@@ -6,4 +6,10 @@ meta {
 
 get {
   url: {{baseUrl}}/gift-cards/{{testCardCode}}/balance
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
 }

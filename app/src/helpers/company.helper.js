@@ -22,3 +22,10 @@ export const getAllCompanyAccounts = async (
 
   return grouped
 }
+
+export const ROLES = {
+  ADMIN: 'admin',
+  OWNER: 'owner',
+  USER: 'user',
+  ANY: 'any'
+}
