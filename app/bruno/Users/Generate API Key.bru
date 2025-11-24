@@ -1,11 +1,11 @@
 meta {
-  name: Spend from Card
+  name: Generate API Key
   type: http
-  seq: 3
+  seq: 6
 }
 
 post {
-  url: {{baseUrl}}/gift-cards/{{testCardCode}}/spend
+  url: {{baseUrl}}/api-keys
   body: json
   auth: bearer
 }
@@ -16,6 +16,6 @@ auth:bearer {
 
 body:json {
   {
-    "amount": 9.99
+    "label": "My Test Key"
   }
 }

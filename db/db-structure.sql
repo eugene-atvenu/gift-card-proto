@@ -165,3 +165,17 @@ ALTER TABLE
   accounts
 ADD
   COLUMN allowed_credit NUMERIC(18, 2) DEFAULT 0 NOT NULL;
+
+-- API keys table
+CREATE TABLE api_keys (
+  key_id UUID PRIMARY KEY DEFAULT generate_uuidv7(),
+  secret_hash TEXT NOT NULL,
+  user_id BIGINT NOT NULL REFERENCES users(id) ON
+  DELETE
+    CASCADE,
+    label TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    last_used_at TIMESTAMPTZ
+);
+
+CREATE INDEX api_keys_user_id_idx ON api_keys(user_id);

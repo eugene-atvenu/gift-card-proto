@@ -1,10 +1,11 @@
 import bcrypt from 'bcrypt'
+import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
-import { authenticateUser } from '../middleware/auth.js'
+import { authenticate } from '../middleware/authenticate.js'
 
 const JWT_SECRET =
   process.env.JWT_SECRET || 'your-secret-key-change-in-production'
-const SALT_ROUNDS = 10
+const SALT_ROUNDS = 12
 
 export default async function usersRoutes(fastify, options) {
   // POST /register - Register a new user
@@ -117,7 +118,7 @@ export default async function usersRoutes(fastify, options) {
   // PATCH /profile - Update user profile (requires authentication)
   fastify.patch(
     '/profile',
-    { preHandler: authenticateUser },
+    { preHandler: authenticate },
     async (request, reply) => {
       const { profile } = request.body
 
@@ -146,34 +147,30 @@ export default async function usersRoutes(fastify, options) {
   )
 
   // DELETE /profile - Soft delete user account (requires authentication)
-  fastify.delete(
-    '/',
-    { preHandler: authenticateUser },
-    async (request, reply) => {
-      const client = await fastify.pg.connect()
-      try {
-        const { rows } = await client.query(
-          'UPDATE users SET deleted_at = NOW() WHERE id = $1 AND deleted_at IS NULL RETURNING id',
-          [request.user.id]
-        )
+  fastify.delete('/', { preHandler: authenticate }, async (request, reply) => {
+    const client = await fastify.pg.connect()
+    try {
+      const { rows } = await client.query(
+        'UPDATE users SET deleted_at = NOW() WHERE id = $1 AND deleted_at IS NULL RETURNING id',
+        [request.user.id]
+      )
 
-        if (rows.length === 0) {
-          reply.code(404)
-          return { error: 'User not found' }
-        }
-
-        reply.code(204)
-        return
-      } finally {
-        client.release()
+      if (rows.length === 0) {
+        reply.code(404)
+        return { error: 'User not found' }
       }
+
+      reply.code(204)
+      return
+    } finally {
+      client.release()
     }
-  )
+  })
 
   // GET /profile - Get current user profile (requires authentication)
   fastify.get(
     '/profile',
-    { preHandler: authenticateUser },
+    { preHandler: authenticate },
     async (request, reply) => {
       const client = await fastify.pg.connect()
       try {
@@ -188,6 +185,45 @@ export default async function usersRoutes(fastify, options) {
         }
 
         return { user: rows[0] }
+      } finally {
+        client.release()
+      }
+    }
+  )
+
+  // POST /api-keys - Generate a new API key
+  fastify.post(
+    '/api-keys',
+    { preHandler: authenticate },
+    async (request, reply) => {
+      const { label } = request.body || {}
+      const userId = request.user.id
+
+      // Generate a random 32-char secret
+      const secret = crypto.randomBytes(16).toString('hex') // 16 bytes = 32 hex chars
+
+      // Hash the secret
+      const secretHash = await bcrypt.hash(secret, SALT_ROUNDS)
+
+      const client = await fastify.pg.connect()
+      try {
+        // Insert into api_keys
+        // We let the DB generate the UUID v7 key
+        const { rows } = await client.query(
+          `INSERT INTO api_keys (user_id, secret_hash, label)
+           VALUES ($1, $2, $3)
+           RETURNING key_id as key, created_at`,
+          [userId, secretHash, label]
+        )
+
+        const newKey = rows[0]
+
+        return {
+          key: newKey.key,
+          secret: secret,
+          label: label,
+          createdAt: newKey.created_at
+        }
       } finally {
         client.release()
       }
